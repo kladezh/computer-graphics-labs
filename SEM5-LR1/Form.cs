@@ -16,5 +16,14 @@ namespace SEM5_LR1
         {
             InitializeComponent();
         }
+       
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void pictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+        }
     }
 }
