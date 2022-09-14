@@ -20,7 +20,8 @@ namespace SEM5_LR1
 
             painter = new CurvePainter
             {
-                PaintContext = pictureBox
+                PaintContext = pictureBox,
+                Pen = new Pen(Color.Black, 2f)
             };
         }
        
@@ -52,6 +53,8 @@ namespace SEM5_LR1
             }
         }
 
+        public Pen Pen { get; set; }
+
         public CurvePainter()
         {
             Points = new List<Point>();
@@ -66,12 +69,10 @@ namespace SEM5_LR1
 
         public void DrawPoint(Point point)
         {
-            Pen pen = new Pen(Color.Black);
-
             Rectangle rect = new Rectangle(point, new Size(5, 5));
 
-            Graphics.DrawEllipse(pen, rect);
-            Graphics.FillEllipse(pen.Brush, rect);
+            Graphics.DrawEllipse(Pen, rect);
+            Graphics.FillEllipse(Pen.Brush, rect);
         }
 
         public void DrawLine(Point first, Point second)
