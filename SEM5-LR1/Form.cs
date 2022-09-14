@@ -32,6 +32,7 @@ namespace SEM5_LR1
 
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
         {
+            painter.AddPoint(e.Location);
         }
     }
 
@@ -40,12 +41,13 @@ namespace SEM5_LR1
         private Graphics Graphics { get; set; }
         private List<Point> Points { get; set; }
 
+        private Control _paintContext;
         public Control PaintContext
         {
-            get => PaintContext;
+            get => _paintContext;
             set 
             {
-                PaintContext = value;
+                _paintContext = value;
                 Graphics = value.CreateGraphics();
             }
         }
@@ -57,8 +59,36 @@ namespace SEM5_LR1
 
         public void Clear()
         {
+            Points.Clear();
+
             Graphics.Clear(PaintContext.BackColor);
         }
 
+        public void DrawPoint(Point point)
+        {
+            Pen pen = new Pen(Color.Black);
+
+            Rectangle rect = new Rectangle(point, new Size(5, 5));
+
+            Graphics.DrawEllipse(pen, rect);
+            Graphics.FillEllipse(pen.Brush, rect);
+        }
+
+        public void DrawLine(Point first, Point second)
+        {
+            // draw by brezenheim algorithm
+        }
+
+        public void AddPoint(Point point)
+        {
+            Points.Add(point);
+
+            DrawPoint(point);
+
+            if (Points.Count() <= 1)
+                return;
+
+            DrawLine(Points[Points.Count() - 1], Points[Points.Count() - 2]);
+        }
     }
 }
