@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEM5-LR1", "SEM5-LR1\SEM5-LR1.csproj", "{2369C8C1-3A98-4A5D-8AD4-BC5DD1E0D3EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEM5-LR2", "SEM5-LR2\SEM5-LR2.csproj", "{DCF815DB-DDE1-47AB-B7DC-7D11CCB0644D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{2369C8C1-3A98-4A5D-8AD4-BC5DD1E0D3EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2369C8C1-3A98-4A5D-8AD4-BC5DD1E0D3EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2369C8C1-3A98-4A5D-8AD4-BC5DD1E0D3EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCF815DB-DDE1-47AB-B7DC-7D11CCB0644D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCF815DB-DDE1-47AB-B7DC-7D11CCB0644D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCF815DB-DDE1-47AB-B7DC-7D11CCB0644D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCF815DB-DDE1-47AB-B7DC-7D11CCB0644D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
