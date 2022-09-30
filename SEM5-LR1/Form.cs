@@ -24,7 +24,7 @@ namespace SEM5_LR1
                 Pen = new Pen(Color.Black, 2f)
             };
         }
-       
+
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
@@ -46,7 +46,7 @@ namespace SEM5_LR1
         public Control PaintContext
         {
             get => _paintContext;
-            set 
+            set
             {
                 _paintContext = value;
                 Graphics = value.CreateGraphics();
@@ -65,6 +65,11 @@ namespace SEM5_LR1
             Points.Clear();
 
             Graphics.Clear(PaintContext.BackColor);
+        }
+
+        public void DrawPixel(int x, int y)
+        {
+            Graphics.FillRectangle(Pen.Brush, x, y, 1, 1);
         }
 
         public void DrawPoint(Point point)
@@ -95,14 +100,14 @@ namespace SEM5_LR1
             bool isSteep = Math.Abs(y2 - y1) > Math.Abs(x2 - x1);
 
             // отражаем по диагонали, если крутой
-            if(isSteep)
+            if (isSteep)
             {
                 Swapper.Swap(ref x1, ref y1);
                 Swapper.Swap(ref x2, ref y2);
             }
 
             // меняем местами точки, если отрезок растёт справа налево
-            if(x1 > x2)
+            if (x1 > x2)
             {
                 Swapper.Swap(ref x1, ref x2);
                 Swapper.Swap(ref y1, ref y2);
@@ -119,15 +124,12 @@ namespace SEM5_LR1
             int y = y1;
             for (int x = x1; x <= x2; x++)
             {
-                Graphics.FillRectangle(
-                    Pen.Brush, 
-                    x: isSteep ? y : x, 
-                    y: isSteep ? x : y, 
-                    width: 1, 
-                    height: 1);
+                DrawPixel(
+                    x: isSteep ? y : x,
+                    y: isSteep ? x : y);
 
                 error -= dy;
-                if(error < 0)
+                if (error < 0)
                 {
                     y += ystep;
                     error += dx;
