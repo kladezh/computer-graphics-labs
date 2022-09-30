@@ -81,7 +81,7 @@ namespace SEM5_LR1
         }
         private void DrawLineBresenham(Point first, Point second)
         {
-            /* Прим. 
+            /* 
              * Алгоритм не работает для крутых отрезков
              * (т.е. угол наклона относительно OX больше 45 гр.)
              * и начальная точка считается та, которая левее
@@ -113,6 +113,7 @@ namespace SEM5_LR1
 
             int error = dx / 2;
 
+            // выбор направления роста оси OY
             int ystep = (y1 < y2) ? 1 : -1;
 
             int y = y1;
