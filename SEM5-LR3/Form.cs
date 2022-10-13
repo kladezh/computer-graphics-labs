@@ -38,36 +38,41 @@ namespace SEM5_LR3
 
         private List<Segment> ClipCurveWithRectangle(List<Segment> segments, Rectangle rect)
         {
-            for(int i=0; i < segments.Count; i++)
+            for (int i = 0; i < segments.Count; )
             {
-                segments[i] = ClipSegmentWithRectangle(segments[i], rect);
+                var segment = segments[i];
+
+                if(TryClipSegmentWithRectangle(ref segment, rect))
+                {
+                    segments[i] = segment;
+                    i++;
+                }
+                else
+                {
+                    segments.RemoveAt(i);
+                }
             }
 
             return segments;
         }
 
-        private Segment ClipSegmentWithRectangle(Segment segment, Rectangle rect)
+        private bool TryClipSegmentWithRectangle(ref Segment segment, Rectangle rect)
         {
-            const int Left   = 1; // 0001
-            const int Right  = 2; // 0010
+            const int Left = 1;   // 0001
+            const int Right = 2;  // 0010
             const int Bottom = 4; // 0100
-            const int Top    = 8; // 1000
+            const int Top = 8;    // 1000
 
             // коды концов отрезка
             int code_a = DefinePointCode(segment.PointA, rect);
             int code_b = DefinePointCode(segment.PointB, rect);
-
-            int ry_min = rect.Top;
-            int ry_max = rect.Bottom;
-            int rx_min = rect.Left;
-            int rx_max = rect.Right;
 
             // пока одна из точек вне прямоугольника
             while (Convert.ToBoolean(code_a | code_b))
             {
                 // если обе точки с одной стороны прямоугольника, то отрезок не пересекает прямоугольник
                 if (Convert.ToBoolean(code_a & code_b))
-                    return segment;
+                    return false;
 
                 Point point; int code;
 
@@ -84,7 +89,7 @@ namespace SEM5_LR3
                 }
 
                 // если point левее rect, то передвигаем point на прямую x_min
-                if(Convert.ToBoolean(code & Left))
+                if (Convert.ToBoolean(code & Left))
                 {
                     point.Y += (segment.PointA.Y - segment.PointB.Y) * (rect.Left - point.X)
                         / (segment.PointA.X - segment.PointB.X);
@@ -119,17 +124,17 @@ namespace SEM5_LR3
                 // обновляем код и значения точки
                 if (code == code_a)
                 {
-                    code_a = DefinePointCode(segment.PointA, rect);
                     segment.PointA = point;
+                    code_a = DefinePointCode(segment.PointA, rect);
                 }
                 else
                 {
-                    code_b = DefinePointCode(segment.PointB, rect);
                     segment.PointB = point;
+                    code_b = DefinePointCode(segment.PointB, rect);
                 }
             }
 
-            return segment;
+            return true;
         }
 
         private int DefinePointCode(Point p, Rectangle rect)
@@ -236,11 +241,6 @@ namespace SEM5_LR3
             _rectangle.Height = Math.Abs(_rectangle.Y - location.Y);
         }
 
-        private void ConsumeRectangle()
-        {
-            _rectangle = Rectangle.Empty;
-        }
-
         public override void OnMouseDown(MouseEventArgs e)
         {
             CreateRectangle(e.Location);
@@ -283,7 +283,7 @@ namespace SEM5_LR3
 
             Points.Clear();
         }
-        
+
         public List<Segment> GetCurveSegments()
         {
             var segments = new List<Segment>();
@@ -298,10 +298,10 @@ namespace SEM5_LR3
 
         public void DrawCurveBySegments(List<Segment> segments)
         {
-            DrawPoint(segments.First().PointA);
-
-            if (segments.Count <= 1)
+            if (!segments.Any())
                 return;
+
+            DrawPoint(segments.First().PointA);
 
             foreach (var segment in segments)
             {
