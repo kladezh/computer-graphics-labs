@@ -12,6 +12,14 @@ namespace SEM5_LR3
 {
     public partial class Form : System.Windows.Forms.Form
     {
+        private enum PointPositionCode
+        {
+            Left = 1, // 0001
+            Right = 2, // 0010
+            Bottom = 4, // 0100
+            Top = 8 // 1000
+        };
+
         private CurvePainter _curvePainter;
         private RectanglePainter _rectanglePainter;
 
@@ -38,11 +46,11 @@ namespace SEM5_LR3
 
         private List<Segment> ClipCurveWithRectangle(List<Segment> segments, Rectangle rect)
         {
-            for (int i = 0; i < segments.Count; )
+            for (int i = 0; i < segments.Count;)
             {
                 var segment = segments[i];
 
-                if(TryClipSegmentWithRectangle(ref segment, rect))
+                if (TryClipSegmentWithRectangle(ref segment, rect))
                 {
                     segments[i] = segment;
                     i++;
@@ -58,14 +66,9 @@ namespace SEM5_LR3
 
         private bool TryClipSegmentWithRectangle(ref Segment segment, Rectangle rect)
         {
-            const int Left = 1;   // 0001
-            const int Right = 2;  // 0010
-            const int Bottom = 4; // 0100
-            const int Top = 8;    // 1000
-
             // коды концов отрезка
-            int code_a = DefinePointCode(segment.PointA, rect);
-            int code_b = DefinePointCode(segment.PointB, rect);
+            var code_a = DefinePointCode(segment.PointA, rect);
+            var code_b = DefinePointCode(segment.PointB, rect);
 
             // пока одна из точек вне прямоугольника
             while (Convert.ToBoolean(code_a | code_b))
@@ -74,7 +77,8 @@ namespace SEM5_LR3
                 if (Convert.ToBoolean(code_a & code_b))
                     return false;
 
-                Point point; int code;
+                PointPositionCode code;
+                Point point; 
 
                 // выбирем точку c с ненулевым кодом
                 if (Convert.ToBoolean(code_a))
@@ -89,7 +93,7 @@ namespace SEM5_LR3
                 }
 
                 // если point левее rect, то передвигаем point на прямую x_min
-                if (Convert.ToBoolean(code & Left))
+                if (Convert.ToBoolean(code & PointPositionCode.Left))
                 {
                     point.Y += (segment.PointA.Y - segment.PointB.Y) * (rect.Left - point.X)
                         / (segment.PointA.X - segment.PointB.X);
@@ -97,7 +101,7 @@ namespace SEM5_LR3
                     point.X = rect.Left;
                 }
                 // если point правее rect, то передвигаем point на прямую x_max
-                else if (Convert.ToBoolean(code & Right))
+                else if (Convert.ToBoolean(code & PointPositionCode.Right))
                 {
                     point.Y += (segment.PointA.Y - segment.PointB.Y) * (rect.Right - point.X)
                         / (segment.PointA.X - segment.PointB.X);
@@ -105,7 +109,7 @@ namespace SEM5_LR3
                     point.X = rect.Right;
                 }
                 // если point ниже rect, то передвигаем point на прямую y_min
-                else if (Convert.ToBoolean(code & Bottom))
+                else if (Convert.ToBoolean(code & PointPositionCode.Bottom))
                 {
                     point.X += (segment.PointA.X - segment.PointB.X) * (rect.Top - point.Y)
                         / (segment.PointA.Y - segment.PointB.Y);
@@ -113,7 +117,7 @@ namespace SEM5_LR3
                     point.Y = rect.Top;
                 }
                 // если point выше rect, то передвигаем point на прямую y_max
-                else if (Convert.ToBoolean(code & Top))
+                else if (Convert.ToBoolean(code & PointPositionCode.Top))
                 {
                     point.X += (segment.PointA.X - segment.PointB.X) * (rect.Bottom - point.Y)
                         / (segment.PointA.Y - segment.PointB.Y);
@@ -137,12 +141,12 @@ namespace SEM5_LR3
             return true;
         }
 
-        private int DefinePointCode(Point p, Rectangle rect)
+        private PointPositionCode DefinePointCode(Point p, Rectangle rect)
         {
-            if (p.X < rect.Left)   return 1;
-            if (p.X > rect.Right)  return 2;
-            if (p.Y < rect.Top)    return 4;
-            if (p.Y > rect.Bottom) return 8;
+            if (p.X < rect.Left) return PointPositionCode.Left;
+            if (p.X > rect.Right) return PointPositionCode.Right;
+            if (p.Y < rect.Top) return PointPositionCode.Bottom;
+            if (p.Y > rect.Bottom) return PointPositionCode.Top;
 
             return 0;
         }
