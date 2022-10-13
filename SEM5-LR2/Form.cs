@@ -48,7 +48,7 @@ namespace SEM5_LR2
 
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
         {
-            if(_isMouseDown)
+            if (_isMouseDown)
             {
                 _painter.ConsumeLayout();
 
@@ -116,12 +116,12 @@ public class EllipsePainter
 
         int delta;
 
-        delta = b_sqr - (a_sqr * b) + ( a_sqr / 4);
-        while(2 * b_sqr * x < 2 * a_sqr * y)
+        delta = b_sqr - (a_sqr * b) + (a_sqr / 4);
+        while (2 * b_sqr * x < 2 * a_sqr * y)
         {
             x++;
 
-            if(delta < 0)
+            if (delta < 0)
             {
                 delta += 2 * b_sqr * x + b_sqr;
             }
@@ -139,9 +139,9 @@ public class EllipsePainter
         {
             y--;
 
-            if(delta > 0)
+            if (delta > 0)
             {
-                delta += a_sqr - 2* a_sqr * y;
+                delta += a_sqr - 2 * a_sqr * y;
             }
             else
             {

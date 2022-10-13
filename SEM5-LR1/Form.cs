@@ -113,7 +113,7 @@ namespace SEM5_LR1
                 Swapper.Swap(ref y1, ref y2);
             }
 
-            int dx = x2 - x1;
+            int dx = Math.Abs(x2 - x1);
             int dy = Math.Abs(y2 - y1);
 
             int error = dx / 2;
@@ -126,7 +126,8 @@ namespace SEM5_LR1
             {
                 DrawPixel(
                     x: isSteep ? y : x,
-                    y: isSteep ? x : y);
+                    y: isSteep ? x : y
+                );  
 
                 error -= dy;
                 if (error < 0)
