@@ -33,6 +33,7 @@
             this.radioButtonRectangle = new System.Windows.Forms.RadioButton();
             this.radioButtonCurve = new System.Windows.Forms.RadioButton();
             this.panelPainter = new System.Windows.Forms.Panel();
+            this.buttonClip = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panelPainter.SuspendLayout();
             this.SuspendLayout();
@@ -68,7 +69,6 @@
             this.radioButtonRectangle.Name = "radioButtonRectangle";
             this.radioButtonRectangle.Size = new System.Drawing.Size(69, 17);
             this.radioButtonRectangle.TabIndex = 3;
-            this.radioButtonRectangle.TabStop = true;
             this.radioButtonRectangle.Text = "rectangle";
             this.radioButtonRectangle.UseVisualStyleBackColor = true;
             this.radioButtonRectangle.CheckedChanged += new System.EventHandler(this.radioButtonRectangle_CheckedChanged);
@@ -95,11 +95,23 @@
             this.panelPainter.Size = new System.Drawing.Size(197, 27);
             this.panelPainter.TabIndex = 5;
             // 
+            // buttonClip
+            // 
+            this.buttonClip.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonClip.Location = new System.Drawing.Point(446, 416);
+            this.buttonClip.Name = "buttonClip";
+            this.buttonClip.Size = new System.Drawing.Size(120, 29);
+            this.buttonClip.TabIndex = 6;
+            this.buttonClip.Text = "clip";
+            this.buttonClip.UseVisualStyleBackColor = true;
+            this.buttonClip.Click += new System.EventHandler(this.buttonClip_Click);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(795, 492);
+            this.Controls.Add(this.buttonClip);
             this.Controls.Add(this.panelPainter);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.pictureBox);
@@ -119,6 +131,7 @@
         private System.Windows.Forms.RadioButton radioButtonRectangle;
         private System.Windows.Forms.RadioButton radioButtonCurve;
         private System.Windows.Forms.Panel panelPainter;
+        private System.Windows.Forms.Button buttonClip;
     }
 }
 

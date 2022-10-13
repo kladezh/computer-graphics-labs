@@ -12,41 +12,162 @@ namespace SEM5_LR3
 {
     public partial class Form : System.Windows.Forms.Form
     {
-        private Painter _painter;
+        private CurvePainter _curvePainter;
+        private RectanglePainter _rectanglePainter;
+
+        private Painter _activePainter;
 
         public Form()
         {
             InitializeComponent();
 
-            _painter = new CurvePainter
+            _curvePainter = new CurvePainter
             {
                 PaintContext = pictureBox,
                 Pen = new Pen(Color.Black, 2f)
             };
+
+            _rectanglePainter = new RectanglePainter
+            {
+                PaintContext = pictureBox,
+                Pen = new Pen(Color.Black, 2f)
+            };
+
+            _activePainter = _curvePainter;
         }
 
-        private void buttonClear_Click(object sender, EventArgs e) => _painter.Clear();
+        private List<Segment> ClipCurveWithRectangle(List<Segment> segments, Rectangle rect)
+        {
+            for(int i=0; i < segments.Count; i++)
+            {
+                segments[i] = ClipSegmentWithRectangle(segments[i], rect);
+            }
 
-        private void pictureBox_MouseDown(object sender, MouseEventArgs e) => _painter.OnMouseDown(e);
-        private void pictureBox_MouseMove(object sender, MouseEventArgs e) => _painter.OnMouseMove(e);
-        private void pictureBox_MouseUp(object sender, MouseEventArgs e) => _painter.OnMouseUp(e);
+            return segments;
+        }
+
+        private Segment ClipSegmentWithRectangle(Segment segment, Rectangle rect)
+        {
+            const int Left   = 1; // 0001
+            const int Right  = 2; // 0010
+            const int Bottom = 4; // 0100
+            const int Top    = 8; // 1000
+
+            // коды концов отрезка
+            int code_a = DefinePointCode(segment.PointA, rect);
+            int code_b = DefinePointCode(segment.PointB, rect);
+
+            int ry_min = rect.Top;
+            int ry_max = rect.Bottom;
+            int rx_min = rect.Left;
+            int rx_max = rect.Right;
+
+            // пока одна из точек вне прямоугольника
+            while (Convert.ToBoolean(code_a | code_b))
+            {
+                // если обе точки с одной стороны прямоугольника, то отрезок не пересекает прямоугольник
+                if (Convert.ToBoolean(code_a & code_b))
+                    return segment;
+
+                Point point; int code;
+
+                // выбирем точку c с ненулевым кодом
+                if (Convert.ToBoolean(code_a))
+                {
+                    code = code_a;
+                    point = segment.PointA;
+                }
+                else
+                {
+                    code = code_b;
+                    point = segment.PointB;
+                }
+
+                // если point левее rect, то передвигаем point на прямую x_min
+                if(Convert.ToBoolean(code & Left))
+                {
+                    point.Y += (segment.PointA.Y - segment.PointB.Y) * (rect.Left - point.X)
+                        / (segment.PointA.X - segment.PointB.X);
+
+                    point.X = rect.Left;
+                }
+                // если point правее rect, то передвигаем point на прямую x_max
+                else if (Convert.ToBoolean(code & Right))
+                {
+                    point.Y += (segment.PointA.Y - segment.PointB.Y) * (rect.Right - point.X)
+                        / (segment.PointA.X - segment.PointB.X);
+
+                    point.X = rect.Right;
+                }
+                // если point ниже rect, то передвигаем point на прямую y_min
+                else if (Convert.ToBoolean(code & Bottom))
+                {
+                    point.X += (segment.PointA.X - segment.PointB.X) * (rect.Top - point.Y)
+                        / (segment.PointA.Y - segment.PointB.Y);
+
+                    point.Y = rect.Top;
+                }
+                // если point выше rect, то передвигаем point на прямую y_max
+                else if (Convert.ToBoolean(code & Top))
+                {
+                    point.X += (segment.PointA.X - segment.PointB.X) * (rect.Bottom - point.Y)
+                        / (segment.PointA.Y - segment.PointB.Y);
+
+                    point.Y = rect.Bottom;
+                }
+
+                // обновляем код и значения точки
+                if (code == code_a)
+                {
+                    code_a = DefinePointCode(segment.PointA, rect);
+                    segment.PointA = point;
+                }
+                else
+                {
+                    code_b = DefinePointCode(segment.PointB, rect);
+                    segment.PointB = point;
+                }
+            }
+
+            return segment;
+        }
+
+        private int DefinePointCode(Point p, Rectangle rect)
+        {
+            if (p.X < rect.Left)   return 1;
+            if (p.X > rect.Right)  return 2;
+            if (p.Y < rect.Top)    return 4;
+            if (p.Y > rect.Bottom) return 8;
+
+            return 0;
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e) => _activePainter.Clear();
+
+        private void pictureBox_MouseDown(object sender, MouseEventArgs e) => _activePainter.OnMouseDown(e);
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e) => _activePainter.OnMouseMove(e);
+        private void pictureBox_MouseUp(object sender, MouseEventArgs e) => _activePainter.OnMouseUp(e);
 
         private void radioButtonRectangle_CheckedChanged(object sender, EventArgs e)
         {
-            _painter = new RectanglePainter
-            {
-                PaintContext = pictureBox,
-                Pen = new Pen(Color.Black, 2f)
-            };
+            _activePainter = _rectanglePainter;
         }
-
         private void radioButtonCurve_CheckedChanged(object sender, EventArgs e)
         {
-            _painter = new CurvePainter
-            {
-                PaintContext = pictureBox,
-                Pen = new Pen(Color.Black, 2f)
-            };
+            _activePainter = _curvePainter;
+        }
+
+        private void buttonClip_Click(object sender, EventArgs e)
+        {
+            var rect = _rectanglePainter.Rectangle;
+
+            var clippedCurve = ClipCurveWithRectangle(_curvePainter.GetCurveSegments(), rect);
+
+            _rectanglePainter.Clear();
+            _curvePainter.Clear();
+
+            _rectanglePainter.DrawRectangle(rect);
+            _curvePainter.DrawCurveBySegments(clippedCurve);
         }
     }
 
@@ -74,7 +195,7 @@ namespace SEM5_LR3
 
         public void DrawPixel(int x, int y)
         {
-            Graphics.FillRectangle(Pen.Brush, x, y, 1, 1);
+            Graphics.FillRectangle(Pen.Brush, x, y, 3, 3);
         }
 
         abstract public void OnMouseDown(MouseEventArgs e);
@@ -87,13 +208,18 @@ namespace SEM5_LR3
         private Rectangle _rectangle;
         private bool _isMouseDown = false;
 
+        public Rectangle Rectangle
+        {
+            get => _rectangle;
+        }
+
         public RectanglePainter()
         {
         }
 
-        private void DrawRectangle()
+        public void DrawRectangle(Rectangle rect)
         {
-            Graphics.DrawRectangle(Pen, _rectangle);
+            Graphics.DrawRectangle(Pen, rect);
         }
 
         private void CreateRectangle(Point location)
@@ -129,7 +255,7 @@ namespace SEM5_LR3
                 ScaleRectangle(e.Location);
 
                 Clear();
-                DrawRectangle();
+                DrawRectangle(_rectangle);
             }
         }
 
@@ -137,8 +263,6 @@ namespace SEM5_LR3
         {
             if (_isMouseDown)
             {
-                ConsumeRectangle();
-
                 _isMouseDown = false;
             }
         }
@@ -158,6 +282,32 @@ namespace SEM5_LR3
             base.Clear();
 
             Points.Clear();
+        }
+        
+        public List<Segment> GetCurveSegments()
+        {
+            var segments = new List<Segment>();
+
+            for (int i = 0; i < Points.Count - 1; i++)
+            {
+                segments.Add(new Segment(Points[i], Points[i + 1]));
+            }
+
+            return segments;
+        }
+
+        public void DrawCurveBySegments(List<Segment> segments)
+        {
+            DrawPoint(segments.First().PointA);
+
+            if (segments.Count <= 1)
+                return;
+
+            foreach (var segment in segments)
+            {
+                DrawPoint(segment.PointB);
+                DrawLine(segment.PointA, segment.PointB);
+            }
         }
 
         private void DrawPoint(Point point)
@@ -235,7 +385,7 @@ namespace SEM5_LR3
             if (Points.Count() <= 1)
                 return;
 
-            DrawLine(Points[Points.Count() - 1], Points[Points.Count() - 2]);
+            DrawLine(point, Points[Points.Count() - 2]);
         }
 
         public override void OnMouseDown(MouseEventArgs e)
@@ -251,6 +401,18 @@ namespace SEM5_LR3
         public override void OnMouseUp(MouseEventArgs e)
         {
             AddPoint(e.Location);
+        }
+    }
+
+    public struct Segment
+    {
+        public Point PointA { get; set; }
+        public Point PointB { get; set; }
+
+        public Segment(Point pointA, Point pointB)
+        {
+            PointA = pointA;
+            PointB = pointB;
         }
     }
 
