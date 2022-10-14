@@ -35,6 +35,7 @@
             // 
             // pictureBox
             // 
+            this.pictureBox.BackColor = System.Drawing.SystemColors.Info;
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox.Location = new System.Drawing.Point(13, 13);
             this.pictureBox.Name = "pictureBox";

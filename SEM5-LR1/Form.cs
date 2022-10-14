@@ -69,7 +69,7 @@ namespace SEM5_LR1
 
         public void DrawPixel(int x, int y)
         {
-            Graphics.FillRectangle(Pen.Brush, x, y, 1, 1);
+            Graphics.FillRectangle(Pen.Brush, x, y, 3, 3);
         }
 
         public void DrawPoint(Point point)
