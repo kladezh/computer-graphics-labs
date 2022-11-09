@@ -34,11 +34,9 @@
             this.radioButtonPolygon = new System.Windows.Forms.RadioButton();
             this.radioButtonPolyline = new System.Windows.Forms.RadioButton();
             this.buttonClip = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.buttonDrawPolygon = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panelPainter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -56,9 +54,10 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(711, 403);
+            this.buttonClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonClear.Location = new System.Drawing.Point(311, 399);
             this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(75, 23);
+            this.buttonClear.Size = new System.Drawing.Size(101, 30);
             this.buttonClear.TabIndex = 1;
             this.buttonClear.Text = "clear";
             this.buttonClear.UseVisualStyleBackColor = true;
@@ -66,19 +65,22 @@
             // 
             // panelPainter
             // 
+            this.panelPainter.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panelPainter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelPainter.Controls.Add(this.radioButtonPolygon);
             this.panelPainter.Controls.Add(this.radioButtonPolyline);
-            this.panelPainter.Location = new System.Drawing.Point(42, 398);
+            this.panelPainter.Location = new System.Drawing.Point(12, 399);
             this.panelPainter.Name = "panelPainter";
-            this.panelPainter.Size = new System.Drawing.Size(158, 28);
+            this.panelPainter.Size = new System.Drawing.Size(175, 29);
             this.panelPainter.TabIndex = 2;
             // 
             // radioButtonPolygon
             // 
             this.radioButtonPolygon.AutoSize = true;
-            this.radioButtonPolygon.Location = new System.Drawing.Point(93, 6);
+            this.radioButtonPolygon.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButtonPolygon.Location = new System.Drawing.Point(94, 3);
             this.radioButtonPolygon.Name = "radioButtonPolygon";
-            this.radioButtonPolygon.Size = new System.Drawing.Size(62, 17);
+            this.radioButtonPolygon.Size = new System.Drawing.Size(76, 21);
             this.radioButtonPolygon.TabIndex = 1;
             this.radioButtonPolygon.TabStop = true;
             this.radioButtonPolygon.Text = "polygon";
@@ -88,37 +90,33 @@
             // radioButtonPolyline
             // 
             this.radioButtonPolyline.AutoSize = true;
-            this.radioButtonPolyline.Location = new System.Drawing.Point(3, 6);
+            this.radioButtonPolyline.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButtonPolyline.Location = new System.Drawing.Point(3, 3);
             this.radioButtonPolyline.Name = "radioButtonPolyline";
-            this.radioButtonPolyline.Size = new System.Drawing.Size(52, 17);
+            this.radioButtonPolyline.Size = new System.Drawing.Size(74, 21);
             this.radioButtonPolyline.TabIndex = 0;
             this.radioButtonPolyline.TabStop = true;
-            this.radioButtonPolyline.Text = "Polyline";
+            this.radioButtonPolyline.Text = "polyline";
             this.radioButtonPolyline.UseVisualStyleBackColor = true;
             this.radioButtonPolyline.CheckedChanged += new System.EventHandler(this.radioButtonPolyline_CheckedChanged);
             // 
             // buttonClip
             // 
-            this.buttonClip.Location = new System.Drawing.Point(630, 403);
+            this.buttonClip.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonClip.Location = new System.Drawing.Point(687, 399);
             this.buttonClip.Name = "buttonClip";
-            this.buttonClip.Size = new System.Drawing.Size(75, 23);
+            this.buttonClip.Size = new System.Drawing.Size(101, 30);
             this.buttonClip.TabIndex = 3;
             this.buttonClip.Text = "clip";
             this.buttonClip.UseVisualStyleBackColor = true;
             this.buttonClip.Click += new System.EventHandler(this.buttonClip_Click);
             // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(206, 406);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(35, 20);
-            this.numericUpDown1.TabIndex = 5;
-            // 
             // buttonDrawPolygon
             // 
-            this.buttonDrawPolygon.Location = new System.Drawing.Point(166, 432);
+            this.buttonDrawPolygon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonDrawPolygon.Location = new System.Drawing.Point(193, 399);
             this.buttonDrawPolygon.Name = "buttonDrawPolygon";
-            this.buttonDrawPolygon.Size = new System.Drawing.Size(75, 23);
+            this.buttonDrawPolygon.Size = new System.Drawing.Size(101, 30);
             this.buttonDrawPolygon.TabIndex = 6;
             this.buttonDrawPolygon.Text = "draw";
             this.buttonDrawPolygon.UseVisualStyleBackColor = true;
@@ -128,9 +126,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 466);
+            this.ClientSize = new System.Drawing.Size(798, 462);
             this.Controls.Add(this.buttonDrawPolygon);
-            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.buttonClip);
             this.Controls.Add(this.panelPainter);
             this.Controls.Add(this.buttonClear);
@@ -140,7 +137,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panelPainter.ResumeLayout(false);
             this.panelPainter.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -153,7 +149,6 @@
         private System.Windows.Forms.RadioButton radioButtonPolyline;
         private System.Windows.Forms.Button buttonClip;
         private System.Windows.Forms.RadioButton radioButtonPolygon;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Button buttonDrawPolygon;
     }
 }
