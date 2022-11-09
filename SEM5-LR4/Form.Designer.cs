@@ -31,9 +31,9 @@
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.buttonClear = new System.Windows.Forms.Button();
             this.panelPainter = new System.Windows.Forms.Panel();
-            this.buttonClip = new System.Windows.Forms.Button();
-            this.radioButtonCurve = new System.Windows.Forms.RadioButton();
             this.radioButtonPolygon = new System.Windows.Forms.RadioButton();
+            this.radioButtonCurve = new System.Windows.Forms.RadioButton();
+            this.buttonClip = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.buttonDrawPolygon = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -50,6 +50,9 @@
             this.pictureBox.Size = new System.Drawing.Size(776, 379);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
+            this.pictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDown);
+            this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
+            this.pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseUp);
             // 
             // buttonClear
             // 
@@ -59,6 +62,7 @@
             this.buttonClear.TabIndex = 1;
             this.buttonClear.Text = "clear";
             this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // panelPainter
             // 
@@ -68,27 +72,6 @@
             this.panelPainter.Name = "panelPainter";
             this.panelPainter.Size = new System.Drawing.Size(158, 28);
             this.panelPainter.TabIndex = 2;
-            // 
-            // buttonClip
-            // 
-            this.buttonClip.Location = new System.Drawing.Point(630, 403);
-            this.buttonClip.Name = "buttonClip";
-            this.buttonClip.Size = new System.Drawing.Size(75, 23);
-            this.buttonClip.TabIndex = 3;
-            this.buttonClip.Text = "clip";
-            this.buttonClip.UseVisualStyleBackColor = true;
-            this.buttonClip.Click += new System.EventHandler(this.buttonClip_Click);
-            // 
-            // radioButtonCurve
-            // 
-            this.radioButtonCurve.AutoSize = true;
-            this.radioButtonCurve.Location = new System.Drawing.Point(3, 6);
-            this.radioButtonCurve.Name = "radioButtonCurve";
-            this.radioButtonCurve.Size = new System.Drawing.Size(52, 17);
-            this.radioButtonCurve.TabIndex = 0;
-            this.radioButtonCurve.TabStop = true;
-            this.radioButtonCurve.Text = "curve";
-            this.radioButtonCurve.UseVisualStyleBackColor = true;
             // 
             // radioButtonPolygon
             // 
@@ -100,6 +83,29 @@
             this.radioButtonPolygon.TabStop = true;
             this.radioButtonPolygon.Text = "polygon";
             this.radioButtonPolygon.UseVisualStyleBackColor = true;
+            this.radioButtonPolygon.CheckedChanged += new System.EventHandler(this.radioButtonPolygon_CheckedChanged);
+            // 
+            // radioButtonCurve
+            // 
+            this.radioButtonCurve.AutoSize = true;
+            this.radioButtonCurve.Location = new System.Drawing.Point(3, 6);
+            this.radioButtonCurve.Name = "radioButtonCurve";
+            this.radioButtonCurve.Size = new System.Drawing.Size(52, 17);
+            this.radioButtonCurve.TabIndex = 0;
+            this.radioButtonCurve.TabStop = true;
+            this.radioButtonCurve.Text = "curve";
+            this.radioButtonCurve.UseVisualStyleBackColor = true;
+            this.radioButtonCurve.CheckedChanged += new System.EventHandler(this.radioButtonCurve_CheckedChanged);
+            // 
+            // buttonClip
+            // 
+            this.buttonClip.Location = new System.Drawing.Point(630, 403);
+            this.buttonClip.Name = "buttonClip";
+            this.buttonClip.Size = new System.Drawing.Size(75, 23);
+            this.buttonClip.TabIndex = 3;
+            this.buttonClip.Text = "clip";
+            this.buttonClip.UseVisualStyleBackColor = true;
+            this.buttonClip.Click += new System.EventHandler(this.buttonClip_Click);
             // 
             // numericUpDown1
             // 
@@ -116,6 +122,7 @@
             this.buttonDrawPolygon.TabIndex = 6;
             this.buttonDrawPolygon.Text = "draw";
             this.buttonDrawPolygon.UseVisualStyleBackColor = true;
+            this.buttonDrawPolygon.Click += new System.EventHandler(this.buttonDrawPolygon_Click);
             // 
             // Form
             // 
