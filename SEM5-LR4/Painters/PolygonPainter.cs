@@ -4,6 +4,9 @@
     {    
         public void DrawPolygon()
         {
+            if (Points.Count <= 1)
+                return;
+
             var lastPointIndex = Points.Count - 1;
 
             for (int i = 0; i < lastPointIndex; i++)

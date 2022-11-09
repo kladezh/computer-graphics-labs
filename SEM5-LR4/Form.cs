@@ -50,9 +50,16 @@ namespace SEM5_LR4
 
         private void buttonDrawPolygon_Click(object sender, EventArgs e)
         {
-            if(_activePainter is PolygonPainter p)
+            if(_activePainter is PolygonPainter pgon)
             {
-                p.DrawPolygon();
+                pgon.DrawPolygon();
+                return;
+            }
+
+            if(_activePainter is PolylinePainter pline)
+            {
+                pline.DrawPolyline();
+                return;
             }
         }
 

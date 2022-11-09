@@ -34,14 +34,15 @@ namespace SEM5_LR4.Painters
             }
         }
 
-        public override void OnMouseUp(MouseEventArgs e)
+        public void DrawPolyline()
         {
-            base.OnMouseUp(e);
-
-            if (Points.Count() <= 1)
+            if (Points.Count <= 1)
                 return;
 
-            DrawLine(Points[Points.Count() - 1], Points[Points.Count() - 2]);
+            for (int i = 0; i < Points.Count - 1; i++)
+            {
+                DrawLine(Points[i], Points[i + 1]);
+            }
         }
     }
 }
