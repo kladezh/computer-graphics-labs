@@ -32,7 +32,7 @@
             this.buttonClear = new System.Windows.Forms.Button();
             this.panelPainter = new System.Windows.Forms.Panel();
             this.radioButtonPolygon = new System.Windows.Forms.RadioButton();
-            this.radioButtonCurve = new System.Windows.Forms.RadioButton();
+            this.radioButtonPolyline = new System.Windows.Forms.RadioButton();
             this.buttonClip = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.buttonDrawPolygon = new System.Windows.Forms.Button();
@@ -67,7 +67,7 @@
             // panelPainter
             // 
             this.panelPainter.Controls.Add(this.radioButtonPolygon);
-            this.panelPainter.Controls.Add(this.radioButtonCurve);
+            this.panelPainter.Controls.Add(this.radioButtonPolyline);
             this.panelPainter.Location = new System.Drawing.Point(42, 398);
             this.panelPainter.Name = "panelPainter";
             this.panelPainter.Size = new System.Drawing.Size(158, 28);
@@ -85,17 +85,17 @@
             this.radioButtonPolygon.UseVisualStyleBackColor = true;
             this.radioButtonPolygon.CheckedChanged += new System.EventHandler(this.radioButtonPolygon_CheckedChanged);
             // 
-            // radioButtonCurve
+            // radioButtonPolyline
             // 
-            this.radioButtonCurve.AutoSize = true;
-            this.radioButtonCurve.Location = new System.Drawing.Point(3, 6);
-            this.radioButtonCurve.Name = "radioButtonCurve";
-            this.radioButtonCurve.Size = new System.Drawing.Size(52, 17);
-            this.radioButtonCurve.TabIndex = 0;
-            this.radioButtonCurve.TabStop = true;
-            this.radioButtonCurve.Text = "curve";
-            this.radioButtonCurve.UseVisualStyleBackColor = true;
-            this.radioButtonCurve.CheckedChanged += new System.EventHandler(this.radioButtonCurve_CheckedChanged);
+            this.radioButtonPolyline.AutoSize = true;
+            this.radioButtonPolyline.Location = new System.Drawing.Point(3, 6);
+            this.radioButtonPolyline.Name = "radioButtonPolyline";
+            this.radioButtonPolyline.Size = new System.Drawing.Size(52, 17);
+            this.radioButtonPolyline.TabIndex = 0;
+            this.radioButtonPolyline.TabStop = true;
+            this.radioButtonPolyline.Text = "Polyline";
+            this.radioButtonPolyline.UseVisualStyleBackColor = true;
+            this.radioButtonPolyline.CheckedChanged += new System.EventHandler(this.radioButtonPolyline_CheckedChanged);
             // 
             // buttonClip
             // 
@@ -150,7 +150,7 @@
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Panel panelPainter;
-        private System.Windows.Forms.RadioButton radioButtonCurve;
+        private System.Windows.Forms.RadioButton radioButtonPolyline;
         private System.Windows.Forms.Button buttonClip;
         private System.Windows.Forms.RadioButton radioButtonPolygon;
         private System.Windows.Forms.NumericUpDown numericUpDown1;

@@ -52,8 +52,15 @@
     <Compile Include="Form.Designer.cs">
       <DependentUpon>Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Painters\Painter.cs" />
+    <Compile Include="Painters\LinePainter.cs" />
+    <Compile Include="Painters\PolygonPainter.cs" />
+    <Compile Include="Painters\PolylinePainter.cs" />
+    <Compile Include="Painters\PointPainter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Classes\Swapper.cs" />
+    <Compile Include="Models\Structures\Segment.cs" />
     <EmbeddedResource Include="Form.resx">
       <DependentUpon>Form.cs</DependentUpon>
     </EmbeddedResource>
@@ -79,5 +86,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
