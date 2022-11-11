@@ -5,7 +5,7 @@ using SEM5_LR4.Classes;
 
 namespace SEM5_LR4.Painters
 {
-    public class LinePainter : PointPainter
+    public abstract class LinePainter : PointPainter
     {
         public void DrawLine(Point first, Point second)
         {

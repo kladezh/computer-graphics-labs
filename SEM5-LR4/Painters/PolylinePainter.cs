@@ -20,7 +20,7 @@ namespace SEM5_LR4.Painters
             return segments;
         }
 
-        public void DrawPolylineBySegments(List<Segment> segments)
+        public void DrawSegments(List<Segment> segments)
         {
             if (!segments.Any())
                 return;

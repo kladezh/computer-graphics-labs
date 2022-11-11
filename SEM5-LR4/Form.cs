@@ -8,7 +8,7 @@ namespace SEM5_LR4
 {
     public partial class Form : System.Windows.Forms.Form
     {
-        private PolylinePainter _PolylinePainter;
+        private PolylinePainter _polylinePainter;
         private PolygonPainter _polygonPainter;
 
         private Painter _activePainter;
@@ -17,7 +17,7 @@ namespace SEM5_LR4
         {
             InitializeComponent();
 
-            _PolylinePainter = new PolylinePainter
+            _polylinePainter = new PolylinePainter
             {
                 PaintContext = pictureBox,
                 Pen = new Pen(Color.BlueViolet, 2f)
@@ -29,18 +29,25 @@ namespace SEM5_LR4
                 Pen = new Pen(Color.Black, 2f)
             };
 
-            _activePainter = _PolylinePainter;
+            _activePainter = _polylinePainter;
         }
 
 
         private void buttonClip_Click(object sender, EventArgs e)
         {
-           
+            var segments = _polylinePainter.GetPolylineSegments();
+
+            var clipedSegments =  _polygonPainter.ClipSegments(segments);
+
+            _polylinePainter.Clear();
+
+            _polylinePainter.DrawSegments(clipedSegments);
+            _polygonPainter.DrawPolygonWithPoints();
         }
 
         private void radioButtonPolyline_CheckedChanged(object sender, EventArgs e)
         {
-            _activePainter = _PolylinePainter;
+            _activePainter = _polylinePainter;
         }
 
         private void radioButtonPolygon_CheckedChanged(object sender, EventArgs e)
@@ -63,7 +70,11 @@ namespace SEM5_LR4
             }
         }
 
-        private void buttonClear_Click(object sender, EventArgs e) => _activePainter.Clear();
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            _polylinePainter.Clear();
+            _polygonPainter.Clear();
+        }
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e) => _activePainter.OnMouseDown(e);
 
