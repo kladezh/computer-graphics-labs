@@ -56,7 +56,7 @@ namespace SEM5_LR6
 
         private void buttonFill_Click(object sender, EventArgs e)
         {
-
+            _painter.FillPolygonWithPoints(_polygon);
         }
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e) => _painter.OnMouseDown(e);

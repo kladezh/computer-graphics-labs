@@ -27,5 +27,10 @@ namespace SEM5_LR6.Painters
 
             DrawLine(points[0], points[lastPointIndex]);
         }
+
+        public void FillPolygonWithPoints(List<Point> points)
+        {
+            Context.FillPolygon(Pen.Brush, points.ToArray());
+        }
     }
 }
