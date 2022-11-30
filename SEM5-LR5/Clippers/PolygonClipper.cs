@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SEM5_LR5.Helpers;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 
@@ -122,14 +124,93 @@ namespace SEM5_LR5.Clippers
         {
             return a.X * b.X + a.Y * b.Y;
         }
-        
+
         public List<Point> ClipPolygon(List<Point> polygon)
         {
+            // Sutherland–Hodgman algorithm
+
             var clipped = new List<Point>(polygon);
 
-            // Sutherland-Hodgman algorithm...
+            for (int i = 0; i < Source.Count; i++)
+            {
+                int k = (i + 1) % Source.Count;
+
+                ClipPolygonWithEdge(ref clipped, Source[i], Source[k]);
+            }
 
             return clipped;
+        }
+
+        private void ClipPolygonWithEdge(ref List<Point> polygon, Point pointA, Point pointB)
+        {
+            var clipped = new List<Point>();
+
+            for (int i = 0; i < polygon.Count; i++)
+            {
+                int k = (i + 1) % polygon.Count;
+
+                int ix = polygon[i].X, iy = polygon[i].Y;
+                int kx = polygon[k].X, ky = polygon[k].Y;
+
+                int iPos = (pointB.X - pointA.X) * (iy - pointA.Y) - (pointB.Y - pointA.Y) * (ix - pointA.X);
+                int kPos = (pointB.X - pointA.X) * (ky - pointA.Y) - (pointB.Y - pointA.Y) * (kx - pointA.X);
+
+                // Case 1 : When both points are inside
+                if (iPos < 0 && kPos < 0)
+                {
+                    // Only second point is added
+                    clipped.Add(new Point(kx, ky));
+                }
+
+                // Case 2: When only first point is outside
+                else if (iPos >= 0 && kPos < 0)
+                {
+                    // Point of intersection with edge
+                    clipped.Add(CalcIntersectPoint(pointA, pointB, polygon[i], polygon[k]));
+
+                    // and the second point is added
+                    clipped.Add(new Point(kx, ky));
+                }
+
+                // Case 3: When only second point is outside
+                else if (iPos < 0 && kPos >= 0)
+                {
+                    // Only point of intersection with edge is added
+                    clipped.Add(CalcIntersectPoint(pointA, pointB, polygon[i], polygon[k]));
+                }
+
+                // Case 4: When both points are outside
+                else
+                {
+                    // No points are added
+                }
+            }
+
+            // Copying new points into original array
+            // and changing the no. of vertices
+            polygon = clipped;      
+        }
+
+        private Point CalcIntersectPoint(Point firstA, Point firstB, Point secondA, Point secondB)
+        {
+            int num, den;
+
+            var point = new Point();
+
+            num = (firstA.X * firstB.Y - firstA.Y * firstB.X) * (secondA.X - secondB.X) -
+                (firstA.X - firstB.X) * (secondA.X * secondB.Y - secondA.Y * secondB.X);
+
+            den = (firstA.X - firstB.X) * (secondA.Y - secondB.Y) - 
+                (firstA.Y - firstB.Y) * (secondA.X - secondB.X);
+
+            point.X = num / den;
+
+            num = (firstA.X * firstB.Y - firstA.Y * firstB.X) * (secondA.Y - secondB.Y) -
+                (firstA.Y - firstB.Y) * (secondA.X * secondB.Y - secondA.Y * secondB.X);
+
+            point.Y = num / den;
+
+            return point;
         }
     }
 }

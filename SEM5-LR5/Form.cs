@@ -34,10 +34,7 @@ namespace SEM5_LR5
                 Pen = new Pen(Color.Black, 2f)
             };
 
-            _clipper = new PolygonClipper();
-
-            _basePolygon = new List<Point>();
-            _editPolygon = new List<Point>();
+            _clipper = new PolygonClipper(); 
         }
 
         private void ClearPictureBox()
@@ -56,19 +53,19 @@ namespace SEM5_LR5
         }
 
         private void buttonDrawPolygon_Click(object sender, EventArgs e)
-        {
+        {            
             _painter.DrawPolygon();
 
             if (radioButtonBase.Checked)
             {
-                _basePolygon = _painter.Points;
+                _basePolygon = new List<Point>(_painter.Points);
             }
             else if(radioButtonEdit.Checked)
             {
-                _editPolygon = _painter.Points;
+                _editPolygon = new List<Point>(_painter.Points);
             }
 
-            _painter.Clear();
+            _painter.Clear();       
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
@@ -82,11 +79,13 @@ namespace SEM5_LR5
             _clipper.Source = _basePolygon;
             _editPolygon = _clipper.ClipPolygon(_editPolygon);
 
-            ClearPictureBox();
-            _painter.Clear();
+            buttonClear.PerformClick();
 
+            radioButtonBase.PerformClick();
             _painter.DrawPolygonWithPoints(_basePolygon);
-            _painter.DrawPolygonWithPoints(_editPolygon);
+
+            radioButtonEdit.PerformClick();
+            _painter.DrawPolygonWithPoints(_editPolygon);        
         }
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e) => _painter.OnMouseDown(e);
