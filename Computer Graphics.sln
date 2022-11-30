@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEM5-LR4", "SEM5-LR4\SEM5-L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEM5-LR5", "SEM5-LR5\SEM5-LR5.csproj", "{2762F11D-5D0C-426C-B19F-08D5BB210CD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEM5-LR6", "SEM5-LR6\SEM5-LR6.csproj", "{744EE214-8199-421E-964E-0EDA42A55375}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{2762F11D-5D0C-426C-B19F-08D5BB210CD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2762F11D-5D0C-426C-B19F-08D5BB210CD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2762F11D-5D0C-426C-B19F-08D5BB210CD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{744EE214-8199-421E-964E-0EDA42A55375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{744EE214-8199-421E-964E-0EDA42A55375}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{744EE214-8199-421E-964E-0EDA42A55375}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{744EE214-8199-421E-964E-0EDA42A55375}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
