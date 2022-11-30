@@ -3,9 +3,9 @@ using System.Drawing;
 
 using SEM5_LR6.Helpers;
 
-namespace SEM5_LR6.Painters
+namespace SEM5_LR6.Tools.Painters
 {
-    public abstract class LinePainter : PointPainter
+    public abstract class LineTool : PointTool
     {
         public void DrawLine(Point first, Point second)
         {

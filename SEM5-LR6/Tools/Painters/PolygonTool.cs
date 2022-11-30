@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
-namespace SEM5_LR6.Painters
+namespace SEM5_LR6.Tools.Painters
 {
-    public class PolygonPainter : LinePainter
+    public class PolygonTool : LineTool
     {
-        public void DrawPolygon()
+        public override void OnDrawClick(EventArgs e)
         {
-            DrawPolygonWithPoints(Points);
+            DrawPolygon();
         }
-
         public void DrawPolygonWithPoints(List<Point> points)
         {
             if (points.Count <= 1)
                 return;
 
-            foreach(var point in points)
+            foreach (var point in points)
                 DrawPoint(point);
 
             var lastPointIndex = points.Count - 1;
@@ -31,6 +31,11 @@ namespace SEM5_LR6.Painters
         public void FillPolygonWithPoints(List<Point> points)
         {
             Context.FillPolygon(Pen.Brush, points.ToArray());
+        }
+
+        private void DrawPolygon()
+        {
+            DrawPolygonWithPoints(Points);
         }
     }
 }

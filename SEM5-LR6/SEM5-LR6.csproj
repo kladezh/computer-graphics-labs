@@ -53,12 +53,14 @@
       <DependentUpon>Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Swapper.cs" />
-    <Compile Include="Painters\LinePainter.cs" />
-    <Compile Include="Painters\Painter.cs" />
-    <Compile Include="Painters\PointPainter.cs" />
-    <Compile Include="Painters\PolygonPainter.cs" />
+    <Compile Include="Tools\Painters\FillTool.cs" />
+    <Compile Include="Tools\Painters\LineTool.cs" />
+    <Compile Include="Tools\Painters\PainterTool.cs" />
+    <Compile Include="Tools\Painters\PointTool.cs" />
+    <Compile Include="Tools\Painters\PolygonTool.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\ITool.cs" />
     <EmbeddedResource Include="Form.resx">
       <DependentUpon>Form.cs</DependentUpon>
     </EmbeddedResource>

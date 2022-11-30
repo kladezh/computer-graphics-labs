@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using SEM5_LR6.Painters;
+using SEM5_LR6.Tools;
+using SEM5_LR6.Tools.Painters;
 
 namespace SEM5_LR6
 {
@@ -16,9 +17,10 @@ namespace SEM5_LR6
     {
         private Graphics _pictureBoxGraphics;
 
-        private PolygonPainter _painter;
+        private PolygonTool _polygonTool;
+        private FillTool _fillTool;
 
-        private List<Point> _polygon;
+        public ITool Tool { get; set; }
 
         public Form()
         {
@@ -26,45 +28,71 @@ namespace SEM5_LR6
 
             _pictureBoxGraphics = pictureBox.CreateGraphics();
 
-            _painter = new PolygonPainter
+            // create tools
+            _polygonTool = new PolygonTool
             {
                 Context = _pictureBoxGraphics,
                 Pen = new Pen(Color.Black, 2f)
             };
+
+            _fillTool = new FillTool
+            {
+                Context = _pictureBoxGraphics,
+                Pen = new Pen(Color.Black, 2f)
+            };
+
+            // set default tool
+            Tool = _polygonTool;
         }
+
+        #region Helpers
 
         private void ClearPictureBox()
         {
             _pictureBoxGraphics.Clear(pictureBox.BackColor);
         }
 
+        #endregion
+
+        #region EventHandlers
+
         private void buttonClear_Click(object sender, EventArgs e)
         {
             ClearPictureBox();
 
-            _painter.Clear();
+            Tool.OnClearClick(e);
         }
 
         private void buttonDraw_Click(object sender, EventArgs e)
         {
-            _painter.DrawPolygon();
-
-            _polygon = new List<Point>(_painter.Points);
-
-            _painter.Clear();
+            Tool.OnDrawClick(e);
         }
 
-        private void buttonFill_Click(object sender, EventArgs e)
+        private void radioButtonPolygon_CheckedChanged(object sender, EventArgs e)
         {
-            _painter.FillPolygonWithPoints(_polygon);
+            Tool = _polygonTool;
         }
 
-        private void pictureBox_MouseDown(object sender, MouseEventArgs e) => _painter.OnMouseDown(e);
+        private void radioButtonFill_CheckedChanged(object sender, EventArgs e)
+        {
+            Tool = _fillTool;
+        }
 
-        private void pictureBox_MouseMove(object sender, MouseEventArgs e) => _painter.OnMouseMove(e);
+        private void pictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            Tool.OnMouseDown(e);
+        }
 
-        private void pictureBox_MouseUp(object sender, MouseEventArgs e) => _painter.OnMouseUp(e);
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            Tool.OnMouseMove(e);
+        }
 
-        
+        private void pictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            Tool.OnMouseUp(e);
+        }
+
+        #endregion
     }
 }
