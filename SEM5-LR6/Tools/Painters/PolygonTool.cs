@@ -36,7 +36,7 @@ namespace SEM5_LR6.Tools.Painters
 
         public void FillPolygonWithPoints(List<Point> points)
         {
-            Context.FillPolygon(Pen.Brush, points.ToArray());
+            _graphics.FillPolygon(Pen.Brush, points.ToArray());
         }
 
         public override void OnClear()

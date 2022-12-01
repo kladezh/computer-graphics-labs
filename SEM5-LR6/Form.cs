@@ -31,13 +31,13 @@ namespace SEM5_LR6
             // create tools
             _polygonTool = new PolygonTool
             {
-                Context = _pictureBoxGraphics,
+                Context = pictureBox,
                 Pen = new Pen(Color.Black, 2f)
             };
 
             _fillTool = new FillTool
             {
-                Context = _pictureBoxGraphics,
+                Context = pictureBox,
                 Pen = new Pen(Color.Black, 2f)
             };
 

@@ -40,8 +40,8 @@ namespace SEM5_LR6.Tools.Painters
         {
             Rectangle rect = new Rectangle(point, new Size(5, 5));
 
-            Context.DrawEllipse(Pen, rect);
-            Context.FillEllipse(Pen.Brush, rect);
+            _graphics.DrawEllipse(Pen, rect);
+            _graphics.FillEllipse(Pen.Brush, rect);
         } 
     }
 }

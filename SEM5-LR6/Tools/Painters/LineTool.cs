@@ -16,7 +16,7 @@ namespace SEM5_LR6.Tools.Painters
 
         public void DrawLine(Point first, Point second)
         {
-            Context.DrawLine(Pen, first, second);
+            _graphics.DrawLine(Pen, first, second);
         }
         public void DrawLineBresenham(Point first, Point second)
         {

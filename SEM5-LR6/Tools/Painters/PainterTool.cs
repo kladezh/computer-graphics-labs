@@ -6,13 +6,24 @@ namespace SEM5_LR6.Tools.Painters
 {
     public abstract class PainterTool : ITool
     {
-        public Graphics Context { get; set; }
+        protected Graphics _graphics;
+
+        private PictureBox _context;
+        public PictureBox Context
+        {
+            get => _context;
+            set
+            {
+                _context = value;
+                _graphics = value.CreateGraphics();
+            }
+        }
 
         public Pen Pen { get; set; }
 
         public void DrawPixel(int x, int y)
         {
-            Context.FillRectangle(Pen.Brush, x, y, 3, 3);
+            _graphics.FillRectangle(Pen.Brush, x, y, 3, 3);
         }
 
         public abstract void OnClear();
