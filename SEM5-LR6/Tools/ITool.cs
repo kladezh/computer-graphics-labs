@@ -5,8 +5,8 @@ namespace SEM5_LR6.Tools
 {
     public interface ITool
     {
-        void OnClearClick(EventArgs e);
-        void OnDrawClick(EventArgs e);
+        void OnClear();
+        void OnSwitch();
 
         void OnMouseDown(MouseEventArgs e);
         void OnMouseMove(MouseEventArgs e);

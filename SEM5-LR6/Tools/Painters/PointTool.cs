@@ -7,18 +7,16 @@ namespace SEM5_LR6.Tools.Painters
 {
     public class PointTool : PainterTool
     {
-        public List<Point> Points { get; set; }
-
         public PointTool() : base()
         {
-            Points = new List<Point>();
         }
-        public override void OnClearClick(EventArgs e)
+
+        public override void OnClear()
         {
             return;
         }
 
-        public override void OnDrawClick(EventArgs e)
+        public override void OnSwitch()
         {
             return;
         }
@@ -35,12 +33,7 @@ namespace SEM5_LR6.Tools.Painters
 
         public override void OnMouseUp(MouseEventArgs e)
         {
-            BuildPoint(e.Location);
-        }
-
-        public void Clear()
-        {
-            Points.Clear();
+            DrawPoint(e.Location);
         }
 
         public void DrawPoint(Point point)
@@ -50,12 +43,5 @@ namespace SEM5_LR6.Tools.Painters
             Context.DrawEllipse(Pen, rect);
             Context.FillEllipse(Pen.Brush, rect);
         } 
-
-        private void BuildPoint(Point point)
-        {
-            Points.Add(point);
-
-            DrawPoint(point);
-        }
     }
 }

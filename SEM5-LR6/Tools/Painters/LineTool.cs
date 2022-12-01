@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Drawing;
-
+using System.Windows.Forms;
 using SEM5_LR6.Helpers;
 
 namespace SEM5_LR6.Tools.Painters
 {
     public abstract class LineTool : PointTool
     {
+        protected Point _lastPoint;
+
+        public LineTool() : base()
+        {
+            _lastPoint = Point.Empty;
+        }
+
         public void DrawLine(Point first, Point second)
         {
             Context.DrawLine(Pen, first, second);
@@ -63,6 +70,26 @@ namespace SEM5_LR6.Tools.Painters
                     error += dx;
                 }
             }
+        }
+
+        public override void OnClear()
+        {
+            _lastPoint = Point.Empty;
+        }
+
+        public override void OnSwitch()
+        {
+            _lastPoint = Point.Empty;
+        }
+
+        public override void OnMouseUp(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+
+            if(!_lastPoint.IsEmpty)
+                DrawLine(_lastPoint, e.Location);
+
+            _lastPoint = e.Location;
         }
     }
 }

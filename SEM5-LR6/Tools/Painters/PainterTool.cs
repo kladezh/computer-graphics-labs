@@ -15,8 +15,9 @@ namespace SEM5_LR6.Tools.Painters
             Context.FillRectangle(Pen.Brush, x, y, 3, 3);
         }
 
-        public abstract void OnClearClick(EventArgs e);
-        public abstract void OnDrawClick(EventArgs e);
+        public abstract void OnClear();
+        public abstract void OnSwitch();
+
         public abstract void OnMouseDown(MouseEventArgs e);
         public abstract void OnMouseMove(MouseEventArgs e);
         public abstract void OnMouseUp(MouseEventArgs e);

@@ -9,12 +9,12 @@ namespace SEM5_LR6.Tools.Painters
 {
     public class FillTool : PainterTool
     {
-        public override void OnClearClick(EventArgs e)
+        public override void OnClear()
         {
             return;
         }
 
-        public override void OnDrawClick(EventArgs e)
+        public override void OnSwitch()
         {
             return;
         }
@@ -31,7 +31,11 @@ namespace SEM5_LR6.Tools.Painters
 
         public override void OnMouseUp(MouseEventArgs e)
         {
-            return;
+            var point = e.Location;
+
+            var color = Pen.Color;
+
+            // fill algorithm...
         }
     }
 }

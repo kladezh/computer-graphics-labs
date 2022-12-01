@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace SEM5_LR6.Tools.Painters
 {
     public class PolygonTool : LineTool
     {
-        public override void OnDrawClick(EventArgs e)
+        private readonly int CaptureValue = 10;
+
+        private Point _firstPoint;
+
+        public PolygonTool() : base()
         {
-            DrawPolygon();
+            _firstPoint = Point.Empty;
         }
+
         public void DrawPolygonWithPoints(List<Point> points)
         {
             if (points.Count <= 1)
@@ -33,9 +39,48 @@ namespace SEM5_LR6.Tools.Painters
             Context.FillPolygon(Pen.Brush, points.ToArray());
         }
 
-        private void DrawPolygon()
+        public override void OnClear()
         {
-            DrawPolygonWithPoints(Points);
+            base.OnClear();
+
+            _firstPoint = Point.Empty;
+        }
+
+        public override void OnSwitch()
+        {
+            if(!IsPolygonCompleted())
+                CompletePolygon();
+        }
+
+        public override void OnMouseUp(MouseEventArgs e)
+        {
+            var point = e.Location;
+
+            if (new Rectangle(point.X - CaptureValue, point.Y - CaptureValue, 
+                CaptureValue * 2, CaptureValue * 2)
+                .Contains(_firstPoint))
+            {
+                CompletePolygon();
+                return;
+            }
+
+            if (_firstPoint.IsEmpty)
+                _firstPoint = point;
+
+            base.OnMouseUp(e);
+        }
+        
+        private void CompletePolygon()
+        {
+            DrawLine(_firstPoint, _lastPoint);
+
+            _firstPoint = Point.Empty;
+            _lastPoint = Point.Empty;
+        }
+
+        private bool IsPolygonCompleted()
+        {
+            return _firstPoint.IsEmpty && _lastPoint.IsEmpty;
         }
     }
 }

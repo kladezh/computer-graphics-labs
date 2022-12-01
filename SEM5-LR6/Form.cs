@@ -58,23 +58,22 @@ namespace SEM5_LR6
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
+            Tool.OnClear();
+
             ClearPictureBox();
-
-            Tool.OnClearClick(e);
-        }
-
-        private void buttonDraw_Click(object sender, EventArgs e)
-        {
-            Tool.OnDrawClick(e);
         }
 
         private void radioButtonPolygon_CheckedChanged(object sender, EventArgs e)
         {
+            Tool.OnSwitch();
+
             Tool = _polygonTool;
         }
 
         private void radioButtonFill_CheckedChanged(object sender, EventArgs e)
         {
+            Tool.OnSwitch();
+
             Tool = _fillTool;
         }
 
@@ -86,6 +85,10 @@ namespace SEM5_LR6
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             Tool.OnMouseMove(e);
+
+            // Debug
+            label1.Text = e.Location.ToString();
+            //
         }
 
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
