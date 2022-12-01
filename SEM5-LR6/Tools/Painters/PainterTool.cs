@@ -8,14 +8,14 @@ namespace SEM5_LR6.Tools.Painters
     {
         protected Graphics _graphics;
 
-        private PictureBox _context;
-        public PictureBox Context
+        private Bitmap _context;
+        public Bitmap Context
         {
             get => _context;
             set
             {
                 _context = value;
-                _graphics = value.CreateGraphics();
+                _graphics = Graphics.FromImage(value);
             }
         }
 
@@ -23,7 +23,7 @@ namespace SEM5_LR6.Tools.Painters
 
         public void DrawPixel(int x, int y)
         {
-            _graphics.FillRectangle(Pen.Brush, x, y, 3, 3);
+            _graphics.FillRectangle(Pen.Brush, x, y, 1, 1);
         }
 
         public abstract void OnClear();

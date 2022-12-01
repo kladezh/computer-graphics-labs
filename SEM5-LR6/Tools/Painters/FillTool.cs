@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -34,21 +35,22 @@ namespace SEM5_LR6.Tools.Painters
         {
             var point = e.Location;
 
-            var pickColor = PickColor(point);
+            var pickColor = Context.GetPixel(point.X, point.Y);
 
-            var fillColor = Pen.Color;
-
-            // fill algorithm...
+            FillPixel(point.X, point.Y, pickColor);
         }
 
-        private Color PickColor(Point point)
+        private void FillPixel(int x, int y, Color pick)
         {
-            var b = (Bitmap)Context.Image;
+            if (x >= Context.Width - 1 || y >= Context.Height - 1 || x < 1 ||  y < 1)
+                return;
 
-            int x = point.X * b.Width / Context.ClientSize.Width;
-            int y = point.Y * b.Height / Context.ClientSize.Height;
+            DrawPixel(x, y);
 
-            return b.GetPixel(x, y);
+            if (Context.GetPixel(x + 1, y).ToArgb() == pick.ToArgb()) FillPixel(x + 1, y, pick);
+            if (Context.GetPixel(x - 1, y).ToArgb() == pick.ToArgb()) FillPixel(x - 1, y, pick);
+            if (Context.GetPixel(x, y + 1).ToArgb() == pick.ToArgb()) FillPixel(x, y + 1, pick);
+            if (Context.GetPixel(x, y - 1).ToArgb() == pick.ToArgb()) FillPixel(x, y - 1, pick);
         }
     }
 }

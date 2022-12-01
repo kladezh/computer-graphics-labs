@@ -15,7 +15,8 @@ namespace SEM5_LR6
 {
     public partial class Form : System.Windows.Forms.Form
     {
-        private Graphics _pictureBoxGraphics;
+        private Graphics _graphics;
+        private Bitmap _bitmap;
 
         private PolygonTool _polygonTool;
         private FillTool _fillTool;
@@ -26,19 +27,22 @@ namespace SEM5_LR6
         {
             InitializeComponent();
 
-            _pictureBoxGraphics = pictureBox.CreateGraphics();
+            _bitmap = new Bitmap(pictureBox.ClientSize.Width, pictureBox.ClientSize.Height);
+            pictureBox.DrawToBitmap(_bitmap, pictureBox.ClientRectangle);
+
+            _graphics = Graphics.FromImage(_bitmap);
 
             // create tools
             _polygonTool = new PolygonTool
             {
-                Context = pictureBox,
-                Pen = new Pen(Color.Black, 2f)
+                Context = _bitmap,
+                Pen = new Pen(Color.Black, 3f)
             };
 
             _fillTool = new FillTool
             {
-                Context = pictureBox,
-                Pen = new Pen(Color.Black, 2f)
+                Context = _bitmap,
+                Pen = new Pen(Color.Red, 2f)
             };
 
             // set default tool
@@ -49,7 +53,7 @@ namespace SEM5_LR6
 
         private void ClearPictureBox()
         {
-            _pictureBoxGraphics.Clear(pictureBox.BackColor);
+            _graphics.Clear(pictureBox.BackColor);
         }
 
         #endregion
@@ -97,5 +101,10 @@ namespace SEM5_LR6
         }
 
         #endregion
+
+        private void pictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            pictureBox.Image = _bitmap;
+        }
     }
 }
