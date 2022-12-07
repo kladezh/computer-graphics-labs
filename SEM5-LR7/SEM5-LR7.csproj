@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\Helpers\Swapper.cs" />
+    <Compile Include="App\Services\Painter.cs" />
     <Compile Include="Form.cs">
       <SubType>Form</SubType>
     </Compile>
