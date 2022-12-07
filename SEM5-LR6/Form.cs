@@ -8,20 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using SEM5_LR6.Tools;
-using SEM5_LR6.Tools.Painters;
+using SEM5_LR6.App.Components.Tools;
+using SEM5_LR6.App.Services;
 
 namespace SEM5_LR6
 {
     public partial class Form : System.Windows.Forms.Form
     {
-        private Graphics _graphics;
         private Bitmap _bitmap;
+
+        private Painter _painter;
+
+        private ITool Tool;
 
         private PolygonTool _polygonTool;
         private FillTool _fillTool;
-
-        public ITool Tool { get; set; }
 
         public Form()
         {
@@ -30,33 +31,26 @@ namespace SEM5_LR6
             _bitmap = new Bitmap(pictureBox.ClientSize.Width, pictureBox.ClientSize.Height);
             pictureBox.DrawToBitmap(_bitmap, pictureBox.ClientRectangle);
 
-            _graphics = Graphics.FromImage(_bitmap);
+            _painter = new Painter
+            {
+                Context = _bitmap,
+                Pen = new Pen(Color.Black, 3f),
+            };
 
             // create tools
             _polygonTool = new PolygonTool
             {
-                Context = _bitmap,
-                Pen = new Pen(Color.Black, 3f)
+                Painter = _painter
             };
 
             _fillTool = new FillTool
             {
-                Context = _bitmap,
-                Pen = new Pen(Color.Red, 2f)
+                Painter = _painter
             };
 
             // set default tool
             Tool = _polygonTool;
         }
-
-        #region Helpers
-
-        private void ClearPictureBox()
-        {
-            _graphics.Clear(pictureBox.BackColor);
-        }
-
-        #endregion
 
         #region EventHandlers
 
@@ -64,7 +58,7 @@ namespace SEM5_LR6
         {
             Tool.OnClear();
 
-            ClearPictureBox();
+            _painter.Clear();
         }
 
         private void radioButtonPolygon_CheckedChanged(object sender, EventArgs e)

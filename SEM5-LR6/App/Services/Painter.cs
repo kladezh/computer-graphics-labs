@@ -1,17 +1,46 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
-using SEM5_LR6.Helpers;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SEM5_LR6.Tools.Painters
+using SEM5_LR6.App.Helpers;
+
+namespace SEM5_LR6.App.Services
 {
-    public abstract class LineTool : PointTool
+    public class Painter
     {
-        protected Point _lastPoint;
+        private Bitmap _bitmap;
+        private Graphics _graphics;
 
-        public LineTool() : base()
+        public Bitmap Context 
         {
-            _lastPoint = Point.Empty;
+            get => _bitmap;
+            set
+            {
+                _bitmap = value;
+                _graphics = Graphics.FromImage(value);
+            }
+        }
+        public Pen Pen { get; set; }
+
+        public void Clear()
+        {
+            _graphics.Clear(Color.White); // hardcode
+        }
+
+        public void DrawPixel(int x, int y)
+        {
+            _graphics.FillRectangle(Pen.Brush, x, y, 1, 1);
+        }
+
+        public void DrawPoint(Point point)
+        {
+            Rectangle rect = new Rectangle(point, new Size(5, 5));
+
+            _graphics.DrawEllipse(Pen, rect);
+            _graphics.FillEllipse(Pen.Brush, rect);
         }
 
         public void DrawLine(Point first, Point second)
@@ -72,24 +101,22 @@ namespace SEM5_LR6.Tools.Painters
             }
         }
 
-        public override void OnClear()
+        public void DrawPolygonWithPoints(List<Point> points)
         {
-            _lastPoint = Point.Empty;
-        }
+            if (points.Count <= 1)
+                return;
 
-        public override void OnSwitch()
-        {
-            _lastPoint = Point.Empty;
-        }
+            foreach (var point in points)
+                DrawPoint(point);
 
-        public override void OnMouseUp(MouseEventArgs e)
-        {
-            base.OnMouseUp(e);
+            var lastPointIndex = points.Count - 1;
 
-            if(!_lastPoint.IsEmpty)
-                DrawLine(_lastPoint, e.Location);
+            for (int i = 0; i < lastPointIndex; i++)
+            {
+                DrawLine(points[i], points[i + 1]);
+            }
 
-            _lastPoint = e.Location;
+            DrawLine(points[0], points[lastPointIndex]);
         }
     }
 }
