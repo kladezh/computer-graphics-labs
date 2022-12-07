@@ -155,14 +155,14 @@ namespace SEM5_LR5.Clippers
                 int iPos = (pointB.X - pointA.X) * (iy - pointA.Y) - (pointB.Y - pointA.Y) * (ix - pointA.X);
                 int kPos = (pointB.X - pointA.X) * (ky - pointA.Y) - (pointB.Y - pointA.Y) * (kx - pointA.X);
 
-                // Case 1 : When both points are inside
+                // Case 1 : Both are inside
                 if (iPos < 0 && kPos < 0)
                 {
                     // Only second point is added
                     clipped.Add(new Point(kx, ky));
                 }
 
-                // Case 2: When only first point is outside
+                // Case 2: First is outside, second is inside
                 else if (iPos >= 0 && kPos < 0)
                 {
                     // Point of intersection with edge
@@ -172,14 +172,14 @@ namespace SEM5_LR5.Clippers
                     clipped.Add(new Point(kx, ky));
                 }
 
-                // Case 3: When only second point is outside
+                // Case 3: First is inside, second is outside
                 else if (iPos < 0 && kPos >= 0)
                 {
                     // Only point of intersection with edge is added
                     clipped.Add(CalcIntersectPoint(pointA, pointB, polygon[i], polygon[k]));
                 }
 
-                // Case 4: When both points are outside
+                // Case 4: Both are outside
                 else
                 {
                     // No points are added
