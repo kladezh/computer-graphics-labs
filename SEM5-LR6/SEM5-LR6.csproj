@@ -60,7 +60,7 @@
     <Compile Include="App\Components\Tools\PolygonTool.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="App\Components\Tools\ITool.cs" />
+    <Compile Include="App\Interfaces\ITool.cs" />
     <EmbeddedResource Include="Form.resx">
       <DependentUpon>Form.cs</DependentUpon>
     </EmbeddedResource>

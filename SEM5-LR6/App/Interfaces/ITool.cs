@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 using SEM5_LR6.App.Services;
 
-namespace SEM5_LR6.App.Components.Tools
+namespace SEM5_LR6.App.Interfaces
 {
     public interface ITool
     {
