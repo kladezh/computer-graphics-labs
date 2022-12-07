@@ -47,21 +47,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\Services\Painter.cs" />
     <Compile Include="Form.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form.Designer.cs">
       <DependentUpon>Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Swapper.cs" />
-    <Compile Include="Tools\Painters\FillTool.cs" />
-    <Compile Include="Tools\Painters\LineTool.cs" />
-    <Compile Include="Tools\Painters\PainterTool.cs" />
-    <Compile Include="Tools\Painters\PointTool.cs" />
-    <Compile Include="Tools\Painters\PolygonTool.cs" />
+    <Compile Include="App\Helpers\Swapper.cs" />
+    <Compile Include="App\Components\Tools\FillTool.cs" />
+    <Compile Include="App\Components\Tools\PolylineTool.cs" />
+    <Compile Include="App\Components\Tools\PolygonTool.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tools\ITool.cs" />
+    <Compile Include="App\Interfaces\ITool.cs" />
     <EmbeddedResource Include="Form.resx">
       <DependentUpon>Form.cs</DependentUpon>
     </EmbeddedResource>

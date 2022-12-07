@@ -1,4 +1,4 @@
-﻿namespace SEM5_LR6.Helpers
+﻿namespace SEM5_LR6.App.Helpers
 {
     public class Swapper
     {
