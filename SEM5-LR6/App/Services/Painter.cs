@@ -101,7 +101,7 @@ namespace SEM5_LR6.App.Services
             }
         }
 
-        public void DrawPolygonWithPoints(List<Point> points)
+        public void DrawPolygon(List<Point> points)
         {
             if (points.Count <= 1)
                 return;
