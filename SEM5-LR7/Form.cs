@@ -14,9 +14,22 @@ namespace SEM5_LR7
 {
     public partial class Form : System.Windows.Forms.Form
     {
+        private readonly List<PointF> KochTriangle = new List<PointF>
+        {
+            new PointF(200, 200),
+            new PointF(500, 200),
+            new PointF(350, 400)
+        };
+
         private Bitmap _bitmap;
 
         private Painter _painter;
+
+        public int KochIteration 
+        {
+            get => (int)numericUpDownIteration.Value;
+            set => numericUpDownIteration.Value = value;
+        }
 
         public Form()
         {
@@ -33,7 +46,7 @@ namespace SEM5_LR7
 
         }
 
-        private void DrawKochCurve(PointF pt1, PointF pt2, PointF pt3, int iter)
+        private void DrawKoch(PointF pt1, PointF pt2, PointF pt3, int iter)
         {
             if (iter == 0) 
             {
@@ -50,25 +63,42 @@ namespace SEM5_LR7
             var pn3 = new PointF((4 * pc.X - pt3.X) / 3, (4 * pc.Y - pt3.Y) / 3);
 
             //рекурсивно вызываем функцию нужное число раз
-            DrawKochCurve(pn1, pn3, pn2, iter - 1);
-            DrawKochCurve(pn3, pn2, pn1, iter - 1);
-            DrawKochCurve(pt1, pn1, new PointF((2 * pt1.X + pt3.X) / 3, (2 * pt1.Y + pt3.Y) / 3), iter - 1);
-            DrawKochCurve(pn2, pt2, new PointF((2 * pt2.X + pt3.X) / 3, (2 * pt2.Y + pt3.Y) / 3), iter - 1);
+            DrawKoch(pn1, pn3, pn2, iter - 1);
+            DrawKoch(pn3, pn2, pn1, iter - 1);
+            DrawKoch(pt1, pn1, new PointF((2 * pt1.X + pt3.X) / 3, (2 * pt1.Y + pt3.Y) / 3), iter - 1);
+            DrawKoch(pn2, pt2, new PointF((2 * pt2.X + pt3.X) / 3, (2 * pt2.Y + pt3.Y) / 3), iter - 1);
+        }
+
+        private void DrawKochCurve()
+        {
+            DrawKoch(KochTriangle[0], KochTriangle[1], KochTriangle[2], KochIteration);
+        }
+
+        private void DrawKochSnowflake()
+        {
+            DrawKoch(KochTriangle[0], KochTriangle[1], KochTriangle[2], KochIteration);
+            DrawKoch(KochTriangle[1], KochTriangle[2], KochTriangle[0], KochIteration);
+            DrawKoch(KochTriangle[2], KochTriangle[0], KochTriangle[1], KochIteration);
         }
 
         private void buttonDraw_Click(object sender, EventArgs e)
         {
-            var triangle = new List<PointF>
+            if (radioButtonCurve.Checked)
             {
-                new PointF(200, 200),
-                new PointF(500, 200),
-                new PointF(350, 400)
-            };
+                DrawKochCurve();
+                return;
+            }
 
-            int iter = 3;
-            DrawKochCurve(triangle[0], triangle[1], triangle[2], iter);
-            DrawKochCurve(triangle[1], triangle[2], triangle[0], iter);
-            DrawKochCurve(triangle[2], triangle[0], triangle[1], iter);
+            if(radioButtonSnowflake.Checked)
+            {
+                DrawKochSnowflake();
+                return;
+            }
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            _painter.Clear();
         }
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
