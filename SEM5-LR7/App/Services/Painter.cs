@@ -37,7 +37,14 @@ namespace SEM5_LR7.App.Services
 
         public void DrawPoint(Point point)
         {
-            Rectangle rect = new Rectangle(point, new Size(5, 5));
+            var rect = new Rectangle(point, new Size(5, 5));
+
+            _graphics.DrawEllipse(Pen, rect);
+            _graphics.FillEllipse(Pen.Brush, rect);
+        }
+        public void DrawPoint(PointF point)
+        {
+            var rect = new RectangleF(point, new Size(5, 5));
 
             _graphics.DrawEllipse(Pen, rect);
             _graphics.FillEllipse(Pen.Brush, rect);
@@ -47,6 +54,11 @@ namespace SEM5_LR7.App.Services
         {
             _graphics.DrawLine(Pen, first, second);
         }
+        public void DrawLine(PointF first, PointF second)
+        {
+            _graphics.DrawLine(Pen, first, second);
+        }
+
         public void DrawLineBresenham(Point first, Point second)
         {
             /* 
@@ -101,13 +113,24 @@ namespace SEM5_LR7.App.Services
             }
         }
 
-        public void DrawPolygonWithPoints(List<Point> points)
+        public void DrawPolygon(List<Point> points)
         {
             if (points.Count <= 1)
                 return;
 
-            foreach (var point in points)
-                DrawPoint(point);
+            var lastPointIndex = points.Count - 1;
+
+            for (int i = 0; i < lastPointIndex; i++)
+            {
+                DrawLine(points[i], points[i + 1]);
+            }
+
+            DrawLine(points[0], points[lastPointIndex]);
+        }
+        public void DrawPolygon(List<PointF> points)
+        {
+            if (points.Count <= 1)
+                return;
 
             var lastPointIndex = points.Count - 1;
 
