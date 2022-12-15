@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Graphics.Services;
 using SEM5_LR6.App.Interfaces;
 using SEM5_LR6.App.Components.Tools;
-using SEM5_LR6.App.Services;
 
 namespace SEM5_LR6
 {

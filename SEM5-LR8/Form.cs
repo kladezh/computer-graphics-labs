@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Numerics;
 using System.Windows.Forms;
 
-using SEM5_LR8.App.Services;
+using Graphics.Services;
 
 namespace SEM5_LR8
 {

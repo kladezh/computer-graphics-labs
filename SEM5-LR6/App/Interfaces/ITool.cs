@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-using SEM5_LR6.App.Services;
+using Graphics.Services;
 
 namespace SEM5_LR6.App.Interfaces
 {

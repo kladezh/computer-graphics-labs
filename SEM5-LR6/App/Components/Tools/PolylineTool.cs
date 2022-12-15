@@ -2,8 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 
+using Graphics.Services;
 using SEM5_LR6.App.Interfaces;
-using SEM5_LR6.App.Services;
 
 namespace SEM5_LR6.App.Components.Tools
 {

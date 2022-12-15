@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using SEM5_LR7.App.Services;
+using Graphics.Services;
 
 namespace SEM5_LR7
 {
