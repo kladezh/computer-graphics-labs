@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEM5-LR8", "SEM5-LR8\SEM5-L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics", "Graphics\Graphics.csproj", "{DA6341FC-8A70-4C22-9557-567F98E117F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEM5-LR9", "SEM5-LR9\SEM5-LR9.csproj", "{BC861069-063D-4E3F-ADFF-9E022C50FA24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{DA6341FC-8A70-4C22-9557-567F98E117F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA6341FC-8A70-4C22-9557-567F98E117F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA6341FC-8A70-4C22-9557-567F98E117F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC861069-063D-4E3F-ADFF-9E022C50FA24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC861069-063D-4E3F-ADFF-9E022C50FA24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC861069-063D-4E3F-ADFF-9E022C50FA24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC861069-063D-4E3F-ADFF-9E022C50FA24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
