@@ -38,7 +38,7 @@
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox.Location = new System.Drawing.Point(13, 13);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(821, 589);
+            this.pictureBox.Size = new System.Drawing.Size(1178, 720);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
@@ -46,7 +46,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(846, 619);
+            this.ClientSize = new System.Drawing.Size(1203, 745);
             this.Controls.Add(this.pictureBox);
             this.Name = "Form";
             this.Text = "Form";
